@@ -1,0 +1,35 @@
+*{box-sizing:border-box}
+:root{font-family:Arial,Helvetica,sans-serif;color:#1d2939;background:#f3f6f4}
+body{margin:0}
+.topbar{background:#174c37;color:#fff;padding:22px max(20px,calc((100% - 1120px)/2));display:flex;justify-content:space-between;align-items:center;gap:20px}
+.topbar h1{font-size:clamp(1.25rem,3vw,1.8rem);margin:0 0 6px}
+.topbar p{margin:0;color:#dcebe3}
+.page{max-width:1120px;margin:28px auto;padding:0 18px}
+.panel{background:#fff;border:1px solid #d9e3dd;border-radius:12px;padding:22px;margin-bottom:20px;box-shadow:0 2px 8px #173f2c0a}
+h2{margin-top:0}h3{margin-top:24px}
+label{display:flex;flex-direction:column;gap:7px;font-weight:600;font-size:.92rem}
+input,select{width:100%;padding:11px 12px;border:1px solid #c9d5ce;border-radius:7px;background:#fff;font:inherit;color:#1d2939}
+input:focus,select:focus{outline:2px solid #8dc8a8;border-color:#26734d}
+button{border:0;border-radius:7px;padding:11px 16px;background:#176b45;color:#fff;font-weight:700;cursor:pointer}
+button:hover{filter:brightness(.95)}button.secondary{background:#e5eee8;color:#174c37}
+form{display:grid;gap:14px}
+.two-col{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.form-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.wide{grid-column:1/-1}
+.muted{color:#66756d;font-size:.9rem;line-height:1.5}
+.notice{padding:13px 16px;border-radius:8px;margin-bottom:16px;background:#e4f4e9;color:#155d37}
+.notice.error{background:#fde9e7;color:#9b2620}
+.hidden{display:none!important}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+.stat{border:1px solid #d9e3dd;border-radius:9px;padding:14px;background:#f8fbf9}
+.stat span{display:block;color:#66756d;font-size:.85rem;margin-bottom:8px}.stat strong{font-size:1.6rem}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:10px;margin:12px 0 18px}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:780px}
+th,td{text-align:left;padding:11px 10px;border-bottom:1px solid #e3e9e5;vertical-align:top}
+th{background:#f2f7f4}
+td button{padding:7px 9px;margin:2px;font-size:.82rem}
+.badge{display:inline-block;padding:4px 7px;border-radius:5px;background:#edf2ef;font-size:.8rem}
+.actions{min-width:250px}
+footer{text-align:center;padding:20px;color:#66756d;font-size:.85rem}
+@media(max-width:760px){.two-col,.form-grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.filters{grid-template-columns:1fr}.topbar{align-items:flex-start}.wide{grid-column:auto}}

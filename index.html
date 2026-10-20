@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scholarship Monitoring System</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Scholarship Monitoring System</h1>
+      <p>Student Scholarship Monitoring and Academic Compliance System</p>
+    </div>
+    <button id="logoutBtn" class="secondary hidden">Log out</button>
+  </header>
+
+  <main class="page">
+    <div id="notice" class="notice hidden" role="status"></div>
+
+    <section id="setupPanel" class="panel">
+      <h2>Connect to Supabase</h2>
+      <p>Paste your Project URL and publishable key. These are intended for browser use; never paste a service-role key here.</p>
+      <label>Project URL <input id="projectUrl" type="url" placeholder="https://your-project.supabase.co"></label>
+      <label>Publishable key / legacy anon key <input id="publishableKey" type="text" placeholder="sb_publishable_... or anon key"></label>
+      <button id="saveConfigBtn">Connect</button>
+      <p class="muted">For this starter, the settings are kept in this browser's local storage. Do not use a shared/public computer.</p>
+    </section>
+
+    <section id="authPanel" class="panel hidden">
+      <h2>Sign in or create a scholar account</h2>
+      <div class="two-col">
+        <form id="loginForm">
+          <h3>Sign in</h3>
+          <label>Email <input id="loginEmail" type="email" required autocomplete="username"></label>
+          <label>Password <input id="loginPassword" type="password" required autocomplete="current-password"></label>
+          <button type="submit">Sign in</button>
+        </form>
+        <form id="signupForm">
+          <h3>Scholar registration</h3>
+          <label>Full name <input id="signupName" required maxlength="120"></label>
+          <label>Student ID <input id="signupStudentId" required maxlength="40"></label>
+          <label>Email <input id="signupEmail" type="email" required autocomplete="email"></label>
+          <label>Password <input id="signupPassword" type="password" required minlength="8" autocomplete="new-password"></label>
+          <button type="submit" class="secondary">Create scholar account</button>
+          <p class="muted">New sign-ups are scholars only. Staff roles must be assigned by an administrator in the database.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="appPanel" class="hidden">
+      <div class="welcome panel">
+        <div><h2 id="welcomeTitle">Dashboard</h2><p id="welcomeText" class="muted"></p></div>
+      </div>
+
+      <section id="scholarPanel" class="panel hidden">
+        <h2>Submit semester academic summary</h2>
+        <form id="submissionForm" class="form-grid">
+          <label>Academic year <input id="academicYear" placeholder="2026-2027" value="2026-2027" required></label>
+          <label>Semester
+            <select id="semester" required><option value="1">Semester 1</option><option value="2">Semester 2</option><option value="Summer">Summer</option></select>
+          </label>
+          <label>GWA <input id="gwa" type="number" min="1" max="5" step="0.01" required></label>
+          <label>Enrolled units <input id="units" type="number" min="0" step="1" required></label>
+          <label>Failed subjects <input id="failedCount" type="number" min="0" step="1" value="0" required></label>
+          <label>Incomplete grades <input id="incompleteCount" type="number" min="0" step="1" value="0" required></label>
+          <label>Dropped subjects <input id="droppedCount" type="number" min="0" step="1" value="0" required></label>
+          <label class="wide">Grade-document reference <input id="evidenceReference" placeholder="e.g. registrar-document-ref-001" required maxlength="500"></label>
+          <div class="wide"><button type="submit">Submit academic summary</button></div>
+        </form>
+        <h3>My submissions</h3>
+        <div id="mySubmissions" class="table-wrap"></div>
+      </section>
+
+      <section id="staffPanel" class="panel hidden">
+        <h2>Staff dashboard</h2>
+        <div class="stats">
+          <div class="stat"><span>Assigned scholars</span><strong id="statAssigned">0</strong></div>
+          <div class="stat"><span>Pending verification</span><strong id="statPending">0</strong></div>
+          <div class="stat"><span>Compliant</span><strong id="statCompliant">0</strong></div>
+          <div class="stat"><span>With deficiency</span><strong id="statDeficient">0</strong></div>
+        </div>
+
+        <h3>Register scholar profile / assign policy</h3>
+        <p class="muted">Create the user's account from the scholar registration form first. Then enter the same authenticated user's UUID below; find it in Authentication → Users. This assignment screen never creates passwords.</p>
+        <form id="assignmentForm" class="form-grid">
+          <label>Scholar user UUID <input id="assignUserId" required placeholder="UUID from Supabase Auth"></label>
+          <label>Scholarship program
+            <select id="assignProgram" required><option value="">Select program</option></select>
+          </label>
+          <div class="wide"><button type="submit">Assign program</button></div>
+        </form>
+
+        <h3>Filter submissions</h3>
+        <div class="filters">
+          <input id="searchInput" placeholder="Search student ID or name">
+          <select id="programFilter"><option value="">All programs</option></select>
+          <select id="complianceFilter">
+            <option value="">All compliance results</option>
+            <option>Pending</option><option>Compliant</option><option>With Deficiency</option>
+          </select>
+          <button id="refreshBtn" class="secondary" type="button">Refresh</button>
+        </div>
+        <div id="staffSubmissions" class="table-wrap"></div>
+      </section>
+    </section>
+  </main>
+  <footer>Academic records in this application are synthetic test data, not official Registrar records.</footer>
+</body>
+</html>
