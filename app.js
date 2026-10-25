@@ -483,17 +483,27 @@ function renderStaffSubmissions() {
               <td>${escapeHtml(row.deficiency_reasons || "—")}</td>
               <td class="actions">
                 ${!verified ? `
-                  <button type="button" data-action="verify"
-                    data-id="${row.submission_id}">Verify</button>
-                  <button type="button" class="secondary" data-action="return"
-                    data-id="${row.submission_id}">Return</button>
-                ` : ""}
-                <button type="button" data-action="evaluate"
-                  data-id="${row.submission_id}">Evaluate</button>
-                <button type="button" class="secondary" data-action="approve"
-                  data-id="${row.submission_id}">Approve</button>
-                <button type="button" class="secondary" data-action="hold"
-                  data-id="${row.submission_id}">Hold</button>
+  <button type="button" class="btn-success"
+    data-action="verify" data-id="${row.submission_id}">
+    Verify
+  </button>
+  <button type="button" class="btn-danger"
+    data-action="return" data-id="${row.submission_id}">
+    Return
+  </button>
+` : ""}
+<button type="button" class="btn-info"
+  data-action="evaluate" data-id="${row.submission_id}">
+  Evaluate
+</button>
+<button type="button" class="btn-success"
+  data-action="approve" data-id="${row.submission_id}">
+  Approve
+</button>
+<button type="button" class="btn-warning"
+  data-action="hold" data-id="${row.submission_id}">
+  Hold
+</button>
               </td>
             </tr>
           `;

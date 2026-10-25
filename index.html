@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174c37">
   <title>Scholarship Monitoring System</title>
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -10,103 +11,227 @@
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <h1>Scholarship Monitoring System</h1>
-      <p>Student Scholarship Monitoring and Academic Compliance System</p>
-    </div>
-    <button id="logoutBtn" class="secondary hidden">Log out</button>
+    <a class="brand" href="#" aria-label="Scholarship Monitoring home">
+      <span class="brand-mark">S</span>
+      <span>
+        <strong>ScholarTrack</strong>
+        <small>Scholarship Monitoring System</small>
+      </span>
+    </a>
+    <button id="logoutBtn" class="btn btn-outline hidden" type="button">
+      Log out
+    </button>
   </header>
 
   <main class="page">
-    <div id="notice" class="notice hidden" role="status"></div>
+    <div id="notice" class="notice hidden" role="status" aria-live="polite"></div>
 
-    <section id="setupPanel" class="panel">
-      <h2>Connect to Supabase</h2>
-      <p>Paste your Project URL and publishable key. These are intended for browser use; never paste a service-role key here.</p>
-      <label>Project URL <input id="projectUrl" type="url" placeholder="https://your-project.supabase.co"></label>
-      <label>Publishable key / legacy anon key <input id="publishableKey" type="text" placeholder="sb_publishable_... or anon key"></label>
-      <button id="saveConfigBtn">Connect</button>
-      <p class="muted">For this starter, the settings are kept in this browser's local storage. Do not use a shared/public computer.</p>
+    <section id="setupPanel" class="setup-card panel">
+      <div class="section-icon">01</div>
+      <p class="eyebrow">INITIAL SETUP</p>
+      <h2>Connect your system</h2>
+      <p class="muted">Connect your Supabase project to access scholarship records securely.</p>
+
+      <label for="projectUrl">Supabase project URL
+        <input id="projectUrl" type="url" placeholder="https://your-project.supabase.co" autocomplete="url">
+      </label>
+
+      <label for="publishableKey">Publishable key / legacy anon key
+        <input id="publishableKey" type="password" placeholder="Enter your publishable key" autocomplete="off">
+      </label>
+
+      <button id="saveConfigBtn" class="btn btn-primary btn-full" type="button">
+        Connect to Supabase
+      </button>
+      <p class="help-text">Use only your public publishable or anon key. Never enter a service-role key.</p>
     </section>
 
-    <section id="authPanel" class="panel hidden">
-      <h2>Sign in or create a scholar account</h2>
-      <div class="two-col">
-        <form id="loginForm">
+    <section id="authPanel" class="auth-layout panel hidden">
+      <div class="auth-intro">
+        <div class="intro-content">
+          <span class="intro-label">STUDENT SCHOLARSHIP PORTAL</span>
+          <div class="intro-symbol">S</div>
+          <h1>Your academic journey matters.</h1>
+          <p>Keep track of your scholarship requirements, academic submissions, and compliance status in one place.</p>
+          <ul class="benefit-list">
+            <li><span>✓</span> Monitor academic compliance</li>
+            <li><span>✓</span> Submit semester information</li>
+            <li><span>✓</span> Track verification and renewal status</li>
+          </ul>
+        </div>
+        <div class="intro-footer">Student Scholarship Monitoring System</div>
+      </div>
+
+      <div class="auth-content">
+        <div class="auth-heading">
+          <p class="eyebrow">WELCOME</p>
+          <h2>Sign in to your account</h2>
+          <p class="muted">Enter your account details to continue.</p>
+        </div>
+
+        <form id="loginForm" class="auth-form">
           <h3>Sign in</h3>
-          <label>Email <input id="loginEmail" type="email" required autocomplete="username"></label>
-          <label>Password <input id="loginPassword" type="password" required autocomplete="current-password"></label>
-          <button type="submit">Sign in</button>
+          <label for="loginEmail">Email address
+            <input id="loginEmail" type="email" placeholder="you@example.com" required autocomplete="username">
+          </label>
+
+          <label for="loginPassword">Password
+            <input id="loginPassword" type="password" placeholder="Enter your password" required autocomplete="current-password">
+          </label>
+
+          <button type="submit" class="btn btn-primary btn-full">Sign in</button>
         </form>
-        <form id="signupForm">
-          <h3>Scholar registration</h3>
-          <label>Full name <input id="signupName" required maxlength="120"></label>
-          <label>Student ID <input id="signupStudentId" required maxlength="40"></label>
-          <label>Email <input id="signupEmail" type="email" required autocomplete="email"></label>
-          <label>Password <input id="signupPassword" type="password" required minlength="8" autocomplete="new-password"></label>
-          <button type="submit" class="secondary">Create scholar account</button>
-          <p class="muted">New sign-ups are scholars only. Staff roles must be assigned by an administrator in the database.</p>
-        </form>
+
+        <div class="auth-divider"><span>NEW TO THE SYSTEM?</span></div>
+
+        <details class="signup-details">
+          <summary>Create a scholar account <span>＋</span></summary>
+          <p class="muted">Register as a scholar. Scholarship staff accounts must be assigned by an administrator.</p>
+
+          <form id="signupForm" class="auth-form">
+            <label for="signupName">Full name
+              <input id="signupName" required maxlength="120" placeholder="Enter your full name" autocomplete="name">
+            </label>
+
+            <label for="signupStudentId">Student ID
+              <input id="signupStudentId" required maxlength="40" placeholder="Enter your student ID">
+            </label>
+
+            <label for="signupEmail">Email address
+              <input id="signupEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+            </label>
+
+            <label for="signupPassword">Create password
+              <input id="signupPassword" type="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
+            </label>
+
+            <p class="help-text">Use a strong password that you do not use on other websites.</p>
+            <button type="submit" class="btn btn-outline btn-full">Create scholar account</button>
+          </form>
+        </details>
       </div>
     </section>
 
     <section id="appPanel" class="hidden">
       <div class="welcome panel">
-        <div><h2 id="welcomeTitle">Dashboard</h2><p id="welcomeText" class="muted"></p></div>
+        <div>
+          <p class="eyebrow">YOUR WORKSPACE</p>
+          <h2 id="welcomeTitle">Dashboard</h2>
+          <p id="welcomeText" class="muted"></p>
+        </div>
+        <div class="welcome-mark">S</div>
       </div>
 
       <section id="scholarPanel" class="panel hidden">
-        <h2>Submit semester academic summary</h2>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">SCHOLAR PORTAL</p>
+            <h2>Semester academic summary</h2>
+            <p class="muted">Enter your academic information and evidence reference.</p>
+          </div>
+        </div>
+
         <form id="submissionForm" class="form-grid">
-          <label>Academic year <input id="academicYear" placeholder="2026-2027" value="2026-2027" required></label>
-          <label>Semester
-            <select id="semester" required><option value="1">Semester 1</option><option value="2">Semester 2</option><option value="Summer">Summer</option></select>
+          <label for="academicYear">Academic year
+            <input id="academicYear" placeholder="2026-2027" value="2026-2027" required>
           </label>
-          <label>GWA <input id="gwa" type="number" min="1" max="5" step="0.01" required></label>
-          <label>Enrolled units <input id="units" type="number" min="0" step="1" required></label>
-          <label>Failed subjects <input id="failedCount" type="number" min="0" step="1" value="0" required></label>
-          <label>Incomplete grades <input id="incompleteCount" type="number" min="0" step="1" value="0" required></label>
-          <label>Dropped subjects <input id="droppedCount" type="number" min="0" step="1" value="0" required></label>
-          <label class="wide">Grade-document reference <input id="evidenceReference" placeholder="e.g. registrar-document-ref-001" required maxlength="500"></label>
-          <div class="wide"><button type="submit">Submit academic summary</button></div>
+          <label for="semester">Semester
+            <select id="semester" required>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="Summer">Summer</option>
+            </select>
+          </label>
+          <label for="gwa">GWA
+            <input id="gwa" type="number" min="1" max="5" step="0.01" placeholder="e.g. 1.75" required>
+          </label>
+          <label for="units">Enrolled units
+            <input id="units" type="number" min="0" step="1" placeholder="e.g. 18" required>
+          </label>
+          <label for="failedCount">Failed subjects
+            <input id="failedCount" type="number" min="0" step="1" value="0" required>
+          </label>
+          <label for="incompleteCount">Incomplete grades
+            <input id="incompleteCount" type="number" min="0" step="1" value="0" required>
+          </label>
+          <label for="droppedCount">Dropped subjects
+            <input id="droppedCount" type="number" min="0" step="1" value="0" required>
+          </label>
+          <label for="evidenceReference" class="wide">Grade-document reference
+            <input id="evidenceReference" placeholder="Enter your document reference" required maxlength="500">
+          </label>
+          <div class="wide">
+            <button type="submit" class="btn btn-primary">Submit academic summary</button>
+          </div>
         </form>
-        <h3>My submissions</h3>
+
+        <div class="panel-heading subheading">
+          <div>
+            <h3>My submissions</h3>
+            <p class="muted">Review your verification, compliance, and renewal status.</p>
+          </div>
+        </div>
         <div id="mySubmissions" class="table-wrap"></div>
       </section>
 
       <section id="staffPanel" class="panel hidden">
-        <h2>Staff dashboard</h2>
-        <div class="stats">
-          <div class="stat"><span>Assigned scholars</span><strong id="statAssigned">0</strong></div>
-          <div class="stat"><span>Pending verification</span><strong id="statPending">0</strong></div>
-          <div class="stat"><span>Compliant</span><strong id="statCompliant">0</strong></div>
-          <div class="stat"><span>With deficiency</span><strong id="statDeficient">0</strong></div>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">STAFF WORKSPACE</p>
+            <h2>Scholarship dashboard</h2>
+            <p class="muted">Monitor submissions, verify evidence, and manage renewal decisions.</p>
+          </div>
+          <button id="refreshBtn" class="btn btn-outline" type="button">Refresh records</button>
         </div>
 
-        <h3>Register scholar profile / assign policy</h3>
-        <p class="muted">Create the user's account from the scholar registration form first. Then enter the same authenticated user's UUID below; find it in Authentication → Users. This assignment screen never creates passwords.</p>
-        <form id="assignmentForm" class="form-grid">
-          <label>Scholar user UUID <input id="assignUserId" required placeholder="UUID from Supabase Auth"></label>
-          <label>Scholarship program
-            <select id="assignProgram" required><option value="">Select program</option></select>
-          </label>
-          <div class="wide"><button type="submit">Assign program</button></div>
-        </form>
+        <div class="stats">
+          <div class="stat stat-green"><span>Assigned scholars</span><strong id="statAssigned">0</strong><small>Unique assignments</small></div>
+          <div class="stat stat-amber"><span>Pending verification</span><strong id="statPending">0</strong><small>Awaiting review</small></div>
+          <div class="stat stat-blue"><span>Compliant</span><strong id="statCompliant">0</strong><small>Requirements met</small></div>
+          <div class="stat stat-red"><span>With deficiency</span><strong id="statDeficient">0</strong><small>Needs attention</small></div>
+        </div>
 
-        <h3>Filter submissions</h3>
+        <details class="management-section">
+          <summary>Assign a scholarship program <span>＋</span></summary>
+          <p class="muted">Register the scholar account first. Find the user's UUID in Supabase Authentication → Users. This form does not create passwords.</p>
+          <form id="assignmentForm" class="form-grid">
+            <label for="assignUserId">Scholar user UUID
+              <input id="assignUserId" required placeholder="Paste authenticated user's UUID">
+            </label>
+            <label for="assignProgram">Scholarship program
+              <select id="assignProgram" required><option value="">Select program</option></select>
+            </label>
+            <div class="wide">
+              <button type="submit" class="btn btn-primary">Assign program</button>
+            </div>
+          </form>
+        </details>
+
+        <div class="panel-heading subheading">
+          <div>
+            <h3>Submission records</h3>
+            <p class="muted">Search scholars and filter by program or compliance status.</p>
+          </div>
+        </div>
+
         <div class="filters">
-          <input id="searchInput" placeholder="Search student ID or name">
-          <select id="programFilter"><option value="">All programs</option></select>
-          <select id="complianceFilter">
+          <input id="searchInput" aria-label="Search scholars" placeholder="Search name or student ID">
+          <select id="programFilter" aria-label="Filter by program"><option value="">All programs</option></select>
+          <select id="complianceFilter" aria-label="Filter by compliance">
             <option value="">All compliance results</option>
-            <option>Pending</option><option>Compliant</option><option>With Deficiency</option>
+            <option>Pending</option>
+            <option>Compliant</option>
+            <option>With Deficiency</option>
           </select>
-          <button id="refreshBtn" class="secondary" type="button">Refresh</button>
         </div>
         <div id="staffSubmissions" class="table-wrap"></div>
       </section>
     </section>
   </main>
-  <footer>Academic records in this application are synthetic test data, not official Registrar records.</footer>
+
+  <footer>
+    <strong>ScholarTrack</strong>
+    <span>Academic records in this application are synthetic test data, not official Registrar records.</span>
+  </footer>
 </body>
 </html>
